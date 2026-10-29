@@ -8,7 +8,7 @@ const baseGoal=nextGoal;nextGoal=function(){if(campaign.finished)return{title:'S
 // The home goal is a building on the outdoor compass; NPCs are simple existing sprites.
 areas.home.objects.push({id:'mom',name:'Helena · mãe',x:8,y:4,w:1,h:1,to:[7,4],kind:'person',color:'#c99579'},{id:'sister',name:'Clara · irmã',x:8,y:6,w:1,h:1,to:[7,6],kind:'person',color:'#a8b7db'});
 areas.street.objects.push({id:'julia',name:'Júlia · amiga',x:22,y:15,w:1,h:1,to:[21,15],kind:'person',color:'#c78fa7'});
-const beginAdventure=root.querySelector('#b-rpg-begin').onclick;root.querySelector('#b-rpg-begin').onclick=()=>{campaign={events:{},records:[],finished:false,ending:'',tripCost:0,work:0};beginAdventure();if(adventureStarted)chapterMenu()};
+const beginAdventure=root.querySelector('#b-rpg-begin').onclick;root.querySelector('#b-rpg-begin').onclick=()=>{campaign={events:{},records:[],finished:false,ending:'',tripCost:0,work:0};beginAdventure();if(adventureStarted){chapterMenu();queueAdventureSave()}};
 root.querySelector('#b-journal').onclick=journal;root.querySelector('#b-goal-button').onclick=journal;root.querySelector('#b-next').onclick=monthEnd;
 // Prevent the purchase result overlay from hiding the RPG celebration.
 const campaignResult=result;result=function(text,cue='success'){if(cue==='success'&&performance.now()<celebrationUntil){close();sound.cue(cue);toast(text);update();draw();return}campaignResult(text,cue)};

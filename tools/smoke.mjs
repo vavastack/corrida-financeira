@@ -56,7 +56,19 @@ try {
   await page.waitForTimeout(500);
   check(await page.locator('#b-rpg').isVisible() && await page.locator('#b-canvas').isVisible(), 'mundo 2D visível');
   check(page.errors.length === 0, `sem erros no console (aventura)${page.errors.length ? ': ' + page.errors.join(' | ') : ''}`);
+  const savedCount = () => page.evaluate(() => JSON.parse(localStorage.getItem('cf2-adventure-saves-v1') || '[]').length);
+  await page.waitForTimeout(1000);
+  check(await savedCount() === 1, 'aventura salva ao entrar na cidade');
+  // Aba em segundo plano (troca de app no celular) também grava.
+  await page.evaluate(() => {
+    localStorage.removeItem('cf2-adventure-saves-v1');
+    Object.defineProperty(document, 'hidden', {configurable: true, get: () => true});
+    document.dispatchEvent(new Event('visibilitychange'));
+    delete document.hidden;
+  });
+  check(await savedCount() === 1, 'aventura salva quando a aba fica oculta');
   // Sair da página (pagehide) grava a aventura; ao voltar, ela aparece em "Carregar jogo".
+  await page.evaluate(() => localStorage.removeItem('cf2-adventure-saves-v1'));
   await page.reload();
   await page.waitForFunction(() => !!document.getElementById('b-engine').contentWindow?.cf2);
   const saves = await page.evaluate(() => JSON.parse(localStorage.getItem('cf2-adventure-saves-v1') || '[]').length);
