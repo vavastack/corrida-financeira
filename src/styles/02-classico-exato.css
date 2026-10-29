@@ -1,0 +1,9 @@
+#bairro-cf.b-classic-exact>.b-game-nav,#bairro-cf.b-classic-exact>.b-toolbar{display:none!important}
+#bairro-cf .b-chapter-return{display:block;margin:6px 10px;padding:8px 14px;min-height:36px;background:#112b47;color:#f6d67b;border:1px solid #718daf;font-size:12px;border-radius:9px}
+#bairro-cf.b-classic-exact #b-fast{height:calc(var(--cf-viewport-h,100dvh) - 56px)!important;min-height:220px;width:100%;border:0;display:block}
+#bairro-cf.b-classic-exact #b-global-options{display:none!important}
+#bairro-cf .b-location-card{position:absolute;top:110px;left:50%;transform:translateX(-50%);z-index:3;max-width:80%;padding:7px 14px;background:#271b3ee8;border:1px solid #c4a0df;box-shadow:3px 3px 0 #160f28;color:#f0e2ff;font:600 12px ui-monospace,monospace;pointer-events:none;text-align:center}
+#bairro-cf .b-location-card[hidden]{display:none}
+#bairro-cf .b-options-check:focus-within,#bairro-cf .b-choice:focus-within{outline:2px solid #d6b7ff;outline-offset:3px}
+@media(orientation:landscape) and (max-height:600px){#bairro-cf .b-location-card{top:68px;font-size:11px}}
+@media(prefers-reduced-motion:reduce){#bairro-cf *,#bairro-cf *:before,#bairro-cf *:after{scroll-behavior:auto!important}}

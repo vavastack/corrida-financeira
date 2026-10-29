@@ -1,0 +1,44 @@
+#bairro-cf:has(#b-launch:not([hidden]))>.b-game-nav{display:none!important}
+#bairro-cf #b-launch{min-height:var(--cf-viewport-h,100dvh)}
+#bairro-cf .b-title-actions{max-width:360px;grid-template-columns:1fr!important}
+#bairro-cf .b-title-actions>button{display:flex;align-items:center;gap:16px;min-height:76px;text-align:left}
+#bairro-cf .b-title-actions>button>span:first-child{display:grid;place-items:center;width:40px;height:40px;border-radius:10px;background:#ffffff12;font-size:22px;flex-shrink:0}
+#bairro-cf #b-front-dialog{box-sizing:border-box;width:min(640px,calc(100% - 24px));max-height:calc(var(--cf-viewport-h,100dvh) - 24px);overflow:auto;padding:22px;border:1px solid var(--ui-line);border-radius:20px;background:var(--ui-panel);color:var(--ui-text);font:15px/1.55 system-ui,sans-serif;overscroll-behavior:contain}
+#bairro-cf #b-front-dialog::backdrop{background:#100b20aa;backdrop-filter:blur(5px)}
+#bairro-cf #b-front-dialog>header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+#bairro-cf #b-front-title{margin:0;font-size:24px;line-height:1.25}
+#bairro-cf #b-front-dialog button{min-height:48px;font-size:15px;padding:10px 14px}
+#bairro-cf #b-front-close{min-width:44px;font-size:24px;box-shadow:none}
+#bairro-cf .b-mode-picker{display:grid;gap:12px}
+#bairro-cf .b-mode-picker button{display:grid;grid-template-columns:28px 1fr;text-align:left;gap:4px 12px;padding:18px!important;min-height:110px!important}
+#bairro-cf .b-mode-picker strong{font-size:18px}
+#bairro-cf .b-mode-picker small{grid-column:2;font-size:14px;line-height:1.5;font-weight:400;opacity:.85}
+#bairro-cf .b-pick-adventure{background:linear-gradient(115deg,#62408c,#3d2c5e);color:#f5eaff;border-color:#b18ad7}
+#bairro-cf .b-pick-classic{background:linear-gradient(115deg,#153c63,#142d49);color:#ffdf8d;border-color:#688cae}
+#bairro-cf .b-save-record{padding:16px;border:1px solid var(--ui-line);border-radius:14px;margin:12px 0;background:var(--ui-soft)}
+#bairro-cf .b-save-record[data-mode=adventure]{border-left:4px solid #b795e4}
+#bairro-cf .b-save-record[data-mode=classic]{border-left:4px solid #ffd166}
+#bairro-cf .b-save-record p{font-size:13px;color:var(--ui-mut)}
+#bairro-cf .b-save-actions,#bairro-cf .b-help-tabs{display:flex;gap:10px;flex-wrap:wrap}
+#bairro-cf .b-save-actions button{flex:1;min-width:100px}
+#bairro-cf #b-save-filter{width:100%;padding:12px;background:var(--ui-soft);color:var(--ui-text);border:1px solid var(--ui-line);border-radius:10px;font-size:16px;min-height:48px}
+#bairro-cf .b-save-import{display:grid;gap:10px;font-size:13px;margin-top:20px}
+#bairro-cf .b-save-import input{width:100%;min-width:0;font-size:13px}
+#bairro-cf .b-help-tabs button{flex:1}
+#bairro-cf .b-help-tabs button[aria-pressed=true]{border-color:var(--ui-accent);background:var(--ui-soft)}
+#bairro-cf .b-help-copy h3{font-size:20px;margin:20px 0 12px}
+#bairro-cf .b-help-copy h4{font-size:15px;margin:20px 0 6px;color:var(--ui-accent)}
+#bairro-cf .b-help-copy p{font-size:14px;line-height:1.7;margin:8px 0}
+#bairro-cf #b-front-dialog dt{font-weight:700;margin-top:16px}
+#bairro-cf #b-front-dialog dd{margin:4px 0;color:var(--ui-mut)}
+#bairro-cf .b-setting-details{border-top:1px solid var(--ui-line);margin-top:14px;padding-top:12px}
+#bairro-cf .b-setting-details summary{cursor:pointer;min-height:44px;font-size:15px;font-weight:650;display:list-item;align-content:center}
+#bairro-cf #b-unified-options{width:min(560px,calc(100% - 24px));font-size:15px}
+#bairro-cf #b-unified-options .b-title-tag{display:none}
+#bairro-cf #b-options-audio{border:0;margin:0;padding-top:8px}
+#bairro-cf .b-settings-info{display:flex;gap:8px;flex-wrap:wrap}
+#bairro-cf .b-settings-info button{flex:1;font-size:14px!important;min-width:90px}
+#bairro-cf #b-save-current[hidden]{display:none}
+#bairro-cf #b-options-mixer .b-sound-panel{position:static;width:auto;box-shadow:none;border:0;border-radius:0}
+#bairro-cf #b-front-status{font-size:13px}
+@media(orientation:landscape) and (max-height:600px){#bairro-cf #b-launch{padding:20px 30px}#bairro-cf .b-title-actions{grid-template-columns:repeat(3,minmax(0,1fr))!important;max-width:650px}#bairro-cf .b-title-actions>button{padding:10px;gap:8px;min-height:64px}#bairro-cf .b-title-actions small{font-size:10px}#bairro-cf .b-title-actions>button>span:first-child{width:26px;height:30px;font-size:18px}#bairro-cf .b-title-copy{max-width:650px}#bairro-cf .b-mode-picker{grid-template-columns:1fr 1fr}#bairro-cf #b-front-dialog{padding:16px}}

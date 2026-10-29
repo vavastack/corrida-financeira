@@ -1,0 +1,38 @@
+/* Chapter 1 geometry, shared between both modes; color follows their identities. */
+#bairro-cf #b-unified-options{width:min(680px,calc(100% - 24px));box-sizing:border-box;max-height:calc(var(--cf-viewport-h,100dvh) - 24px);padding:24px;border-radius:24px;font:16px/1.5 system-ui,sans-serif}
+#bairro-cf #b-unified-options h2{font-size:24px;margin:6px 0}
+#bairro-cf #b-unified-options h3{font-size:16px;margin:0 0 12px}
+#bairro-cf #b-unified-options section{margin-top:16px;padding:16px 0 0}
+#bairro-cf #b-unified-options :is(button,select){min-height:48px;padding:10px 12px;font-size:16px;border-radius:12px;box-sizing:border-box}
+#bairro-cf #b-options-close{width:48px;height:48px;min-width:48px;padding:10px!important;flex-shrink:0}
+#bairro-cf #b-unified-options .b-options-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:end}
+#bairro-cf #b-unified-options .b-options-grid>*{min-width:0;width:100%}
+#bairro-cf #b-options-master button{width:100%;text-align:center}
+#bairro-cf #b-unified-options label{font-size:14px}
+#bairro-cf #b-options-mixer .b-sound-panel{padding:12px 0 0;gap:12px;display:grid;grid-template-columns:1fr 1fr}
+#bairro-cf #b-options-mixer .b-sound-panel>label:first-child,#bairro-cf #b-audio-state{grid-column:1/-1}
+#bairro-cf #b-unified-options .b-options-check{display:flex;align-items:center;gap:10px;min-height:44px;margin:6px 0;padding:0}
+#bairro-cf #b-unified-options input[type=checkbox]{width:22px;height:22px;min-height:22px;flex-shrink:0}
+#bairro-cf .b-mix-levels{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
+#bairro-cf .b-mix-levels label{display:grid;grid-template-columns:1fr auto;gap:8px}
+#bairro-cf .b-mix-levels input{grid-column:1/-1;width:100%;min-height:24px}
+#bairro-cf #b-options-navigation button{width:100%}
+#bairro-cf #b-options-return{display:block!important;width:100%;margin-top:16px;background:var(--ui-accent);color:var(--ui-bg);font-weight:700}
+#bairro-cf :is(#b-legacy-setup,#b-rpg-intro){box-sizing:border-box;width:min(680px,calc(100% - 24px));margin:16px auto 24px;padding:24px;min-height:0;border:1px solid var(--ui-line);border-radius:24px;overflow:visible;background:var(--ui-panel);color:var(--ui-text)}
+#bairro-cf :is(#b-legacy-setup,#b-rpg-intro) .b-config-top{padding-bottom:4px}
+#bairro-cf :is(#b-legacy-setup,#b-rpg-intro) h2{font-size:24px;line-height:1.35}
+#bairro-cf :is(#b-legacy-setup,#b-rpg-intro) h3{font-size:20px;margin:16px 0}
+#bairro-cf :is(#b-legacy-setup,#b-rpg-intro) .b-choice-grid,#bairro-cf .b-rpg-profile-grid{gap:12px}
+#bairro-cf :is(#b-legacy-setup,#b-rpg-intro) label.b-choice{padding:18px;min-height:80px;font:16px/1.45 system-ui,sans-serif;border-radius:16px;display:grid;grid-template-columns:1fr auto;gap:6px 10px}
+#bairro-cf :is(#b-legacy-setup,#b-rpg-intro) label.b-choice input{grid-column:2;grid-row:1;width:20px;height:20px;margin:0}
+#bairro-cf :is(#b-legacy-setup,#b-rpg-intro) label.b-choice strong{grid-column:1;grid-row:1;font-size:16px}
+#bairro-cf :is(#b-legacy-setup,#b-rpg-intro) label.b-choice span{grid-column:1/-1;font-size:14px}
+#bairro-cf :is(#b-legacy-setup,#b-rpg-intro) :is(button,input[type=number],select){min-height:48px;font-size:16px;padding:10px 12px;box-sizing:border-box}
+#bairro-cf :is(#b-legacy-setup,#b-rpg-intro) .b-config-actions{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:14px 0 0;margin-top:20px;background:var(--ui-panel)}
+#bairro-cf :is(#b-legacy-setup,#b-rpg-intro) .b-config-actions button{flex:1;max-width:50%;margin:0}
+#bairro-cf #b-config-form .b-time-choices{grid-template-columns:1fr}
+#bairro-cf :is(#b-config-form,#b-rpg-finance) :is(input[type=number],select){border-radius:12px;width:100%;min-width:0}
+#bairro-cf #b-traditional>#b-fast{height:calc(var(--cf-viewport-h,100dvh) - 54px)!important}
+#bairro-cf #b-legacy-setup:before{display:none}
+@media(max-width:420px){#bairro-cf :is(#b-unified-options,#b-legacy-setup,#b-rpg-intro){padding:18px}#bairro-cf #b-unified-options .b-options-grid{grid-template-columns:1fr 1fr}}
+@media(orientation:landscape) and (max-height:600px){#bairro-cf #b-unified-options{padding:18px;max-height:calc(var(--cf-viewport-h,100dvh) - 16px)}#bairro-cf :is(#b-legacy-setup,#b-rpg-intro){margin-top:8px}}

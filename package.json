@@ -1,0 +1,10 @@
+{
+  "name": "corrida-financeira",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "check": "node tools/build.mjs --check",
+    "smoke": "node tools/smoke.mjs"
+  }
+}
