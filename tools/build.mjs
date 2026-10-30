@@ -26,10 +26,11 @@ function render(text, stack = []) {
     .replace(/\{\{base64:([^}]+)\}\}/g, (_, rel) => Buffer.from(read(rel), 'utf8').toString('base64'));
 }
 
-// Capítulo 2 (jogo integrado) e Capítulo 1 (o motor sozinho, jogável como Modo Clássico).
+// Capítulo 2 (jogo integrado) e Capítulo 1 (fonte própria em src/capitulo1).
+// Os capítulos são independentes: mudanças em um só vão para o outro quando pedidas.
 const outputs = [
   [outFile, render(read('index.template.html'))],
-  [path.join(root, 'capitulo1.html'), read('motor/capitulo1-v27.7.html')],
+  [path.join(root, 'capitulo1.html'), read('capitulo1/capitulo1.html')],
 ];
 
 if (process.argv.includes('--check')) {

@@ -11,10 +11,13 @@ Os dois usam o **mesmo motor financeiro** (v27.7). Na aventura, ele roda escondi
 
 ## Estrutura
 
-`index.html` (Capítulo 2) e `capitulo1.html` (Capítulo 1) são **gerados**. Edite sempre os arquivos em `src/` e depois rode a montagem. O Capítulo 1 é o próprio motor (`src/motor/capitulo1-v27.7.html`) jogado sozinho; o Capítulo 2 o embute para a aventura e para o Modo Clássico, então toda mudança no motor vale para os dois.
+`index.html` (Capítulo 2) e `capitulo1.html` (Capítulo 1) são **gerados**. Edite sempre os arquivos em `src/` e depois rode a montagem.
+
+Os dois capítulos são **independentes**. O Capítulo 1 tem fonte própria (`src/capitulo1/capitulo1.html`); o Capítulo 2 embute o seu motor (`src/motor/capitulo1-v27.7.html`) para a aventura e o Modo Clássico. Hoje os dois têm as mesmas regras (motor 28.0, síntese da V33), mas uma mudança em um só é levada ao outro quando isso for pedido.
 
 ```
 src/
+  capitulo1/capitulo1.html  Capítulo 1 completo (independente do Capítulo 2)
   index.template.html     marcação da página, com os pontos de inclusão
   styles/NN-*.css         blocos de estilo, na ordem em que entram na página
   app/NN-*.js             script da página (um único escopo, concatenado nesta ordem)
