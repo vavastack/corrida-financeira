@@ -28,6 +28,7 @@ src/
 tools/
   build.mjs               monta index.html a partir de src/
   smoke.mjs               teste de fumaça no navegador (Playwright)
+  simular-pontuacao.mjs   joga partidas completas do Modo Clássico com estratégias automáticas e aleatórias
 legacy/                   versões anteriores, só para consulta
 ```
 
@@ -62,6 +63,11 @@ Marcadores usados pela montagem:
 npm run build   # gera index.html a partir de src/
 npm run check   # falha se index.html não corresponde a src/
 npm run smoke   # abre o jogo no Chromium e percorre os fluxos principais
+npm run simular # pontuação de cada estratégia por duração e limite; use ao mudar regras ou faixas
 ```
 
 Não há dependências para a montagem (só Node 18+). O teste de fumaça precisa do Playwright com Chromium.
+
+## Pontuação (motor 28.0)
+
+As regras de pontuação seguem a síntese da V33.4J Júnior: a reserva pontua pelo saldo mantido (+1 por R$ 200 em cada fechamento) e pela meta mensal de poupança (+1), o patrimônio líquido conta no encerramento (+1 por R$ 100), os juros custam −1 por R$ 10 e o imprevisto de R$ 1.000 é pago só com conta e aplicação. O histórico completo está no cabeçalho de `src/motor/capitulo1-v27.7.html`.

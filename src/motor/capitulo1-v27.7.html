@@ -2,6 +2,16 @@
 <!-- Corrida Financeira 27.7 — estrutura consolidada sobre a base 27.3.
      Arquivo offline único. Regras financeiras e formato de salvamento preservados.
      Seções: estilos, telas, motor financeiro, resultados, persistência e interface. -->
+<!-- 28.0 — SÍNTESE DA V33.4J JÚNIOR (pontuação)
+- Reserva pontua pelo saldo mantido: +1 pt por R$ 200 aplicados em cada fechamento, inclusive o último; o depósito em si não pontua.
+- Aporte mensal (10% do bruto) só com a fatura integralmente quitada; sem saldo para a meta, aplica 80% ou 40%. Meta completa = +1 pt no mês.
+- Patrimônio líquido no encerramento: +1 pt por R$ 100 de conta + aplicação − todas as dívidas do cartão.
+- Saem o bônus fixo de reserva (+20), os pontos por aporte e a etapa de aporte final.
+- Juros e encargos: −1 pt por R$ 10 (antes −2 por R$ 100), com mensagem educativa por faixa de custo.
+- Imprevisto de R$ 1.000 pago só com conta e aplicação, sem crédito; resgate para ele é isento; sem recursos, −30 pts.
+- Faixas baixas sem problema financeiro relevante: "Desafio parcialmente/pouco cumprido" em vez de Vulnerável/Crítica.
+- Faixas da partida curta recalibradas por simulação: 240 / 220 / 190 / 140. Partida de 12 meses mantém 500 / 450 / 360 / 270.
+-->
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -2497,7 +2507,7 @@ html[data-comfort-motion="reduced"] *,html[data-comfort-motion="reduced"] *::bef
     </div>
     <p class="goalsIntroNote"><b id="durationGoalsLabel">12 meses • experiência completa.</b> Quatro ofertas por rodada. Compre quantos itens da vitrine couberem no seu planejamento; comprar é opcional. Não entram novas ofertas após cada compra. <span id="calendarGoalsNote">Em novembro, a Black Friday substitui a vitrine comum.</span> Curso e imprevisto são decisões separadas.<br>Leiam → conversem rapidamente → escolham → justifiquem em uma frase → observem → avancem. Aprofundem o debate no final.</p>
     <p id="characterScenario" class="goalsIntroNote">Cenário simulado: Miguel trabalha e recebe renda bruta de R$ 2.500, líquida de R$ 2.149,31 e despesas mensais de R$ 1.000, incluindo transporte cotidiano. Limite inicial do cartão: R$ 3.000. Valores, descontos e rendimentos são regras didáticas. A bicicleta é alternativa de deslocamento, sem reduzir automaticamente despesas. Óculos e cuidado odontológico são necessidades deste personagem.</p>
-    <div class="goalsIntroBonus"><b>⭐ Principal objetivo:</b> complete todas as necessidades e receba <b>+20 pontos</b>.<br><b>🏦 Meta de reserva:</b> termine com <b><span data-reserve-goal>R$ 3.000</span> ou mais aplicados</b> e receba <b>+20 pontos</b>.<br>💡 No fim do jogo, você poderá <b>aplicar o saldo que restar na conta</b>.</div>
+    <div class="goalsIntroBonus"><b>⭐ Principal objetivo:</b> complete todas as necessidades e receba <b>+20 pontos</b>.<br><b>🏦 Reserva:</b> com a fatura paga, cada mês em que você aplicar a meta (10% do salário bruto) vale <b>+1 ponto</b>, e cada <b>R$ 200</b> mantidos na aplicação valem <b>+1 ponto</b> em todo fechamento.<br><b>💰 Patrimônio:</b> no encerramento, cada <b>R$ 100</b> de conta + aplicação − dívidas valem <b>+1 ponto</b>.</div>
     <details class="goalsIntroNote" style="text-align:left"><summary><b>Guia do aplicador • ritmo e validação</b></summary><p>Reserve 2–3 minutos para a configuração e os objetivos, cerca de 60–75 segundos por mês e 1–2 minutos para o fechamento. As equipes devem decidir em paralelo, com justificativas de uma frase. Não há contagem regressiva obrigatória.</p><p>Na atividade de 1 hora, uma sugestão é: apresentação e explicação 15 min; jogo 20 min; discussão e avaliação 25 min. No pós-jogo: qual compra poderia esperar? Como as parcelas limitaram escolhas? Quando a reserva ajudou? O curso compensou?</p><p><b>Aplicação piloto:</b> a duração depende do ritmo de leitura e decisão das equipes; 15–20 minutos é uma meta de condução, não uma medição com adolescentes. Observe se as equipes negociam prioridades, entendem a entrada e a fatura e chegam a resultados diferentes. Preserve o debate aprofundado para o pós-jogo.</p></details>
     <p id="scenarioIntro" class="sub"></p><button type="button" class="secondary" id="goalsBackBtn">← Configuração</button>
 <button type="button" id="startAfterGoalsBtn" class="primary setupStartBtn">Começar a partida</button>
@@ -2562,10 +2572,11 @@ html[data-comfort-motion="reduced"] *,html[data-comfort-motion="reduced"] *::bef
   </ul>
   <h3>4. Como se ganham e se perdem pontos</h3>
   <ul>
-    <li><b>Ganha:</b> benefícios dos produtos, reserva aplicada, curso, todas as necessidades atendidas (+20) e meta de reserva (+20).</li>
-    <li><b>Perde:</b> dívida problemática, juros e encargos considerados no resultado (pagos ou ainda incorporados à dívida), imprevisto obrigatório não resolvido e resgates da aplicação.</li>
+    <li><b>Ganha:</b> benefícios dos produtos, saldo aplicado (+1 por R$ 200 em cada fechamento), meta mensal de poupança (+1 por mês), patrimônio líquido no encerramento (+1 por R$ 100), curso e todas as necessidades atendidas (+20).</li>
+    <li><b>Perde:</b> dívida problemática, juros e encargos (−1 por R$ 10, pagos ou ainda incorporados à dívida), imprevisto obrigatório não resolvido (−30) e resgates da aplicação para outras despesas.</li>
     <li><b>Fatura com saldo em aberto:</b> pagar ao menos o mínimo perde 5 pontos no ciclo; pagar abaixo do mínimo ou não pagar perde 10. Juros e outras penalidades da dívida são calculados separadamente. Parcelas de compras pagas em dia não recebem essa penalidade.</li>
-    <li><b>Resgate:</b> a regra didática desconta 1 ponto por cada R$ 100 completos resgatados. Na vida real, usar a reserva para um imprevisto é uma de suas finalidades.</li>
+    <li><b>Resgate:</b> a regra didática desconta 1 ponto por cada R$ 100 completos resgatados. Resgatar para pagar o imprevisto não perde pontos: essa é uma das finalidades da reserva.</li>
+    <li><b>Imprevisto:</b> R$ 1.000, pago só com conta e aplicação; o cartão não pode ser usado.</li>
   </ul>
   <h3>5. Livre ou Corrida</h3>
   <ul>
@@ -2590,7 +2601,7 @@ html[data-comfort-motion="reduced"] *,html[data-comfort-motion="reduced"] *::bef
   <details><summary>Parcelamento sem juros e com juros</summary><p>No sem juros, o preço total não muda, mas é dividido em parcelas. No com juros, o total pago é maior que o preço à vista.</p><p class="eduGame">No jogo: cada produto da vitrine tem suas próprias condições.</p></details>
   <details><summary>Entrada</summary><p>Parte do valor paga no ato da compra. Quanto maior a entrada, menor o saldo a financiar.</p></details>
   <details><summary>Desconto no débito ou Pix</summary><p>Alguns produtos têm preço menor para pagamento à vista, sem usar o crédito.</p></details>
-  <details><summary>Aplicação e reserva</summary><p>Dinheiro guardado que rende ao longo do tempo. Serve para imprevistos e objetivos futuros.</p><p class="eduGame">No jogo: rende 1% ao mês, como parâmetro didático. A meta de reserva dá pontos extras. Resgates perdem pontos pela regra do jogo; na vida real a reserva também serve para ser usada em emergências.</p></details>
+  <details><summary>Aplicação e reserva</summary><p>Dinheiro guardado que rende ao longo do tempo. Serve para imprevistos e objetivos futuros.</p><p class="eduGame">No jogo: rende 1% ao mês, como parâmetro didático. O aporte só acontece com a fatura paga por inteiro. O saldo mantido dá pontos a cada fechamento; o depósito em si não pontua. Resgates perdem pontos, exceto para o imprevisto, que é justamente a finalidade da reserva.</p></details>
   <details><summary>Dívida problemática</summary><p>Dívida cara e fora do planejamento, que cresce com juros.</p><p class="eduGame">No jogo: saldo no rotativo ou fatura parcelada em aberto. Ela desconta pontos todo mês e no encerramento. Parcelas normais pagas em dia não são penalizadas.</p></details>
   <details><summary>Imprevisto</summary><p>Gasto inesperado que precisa ser pago. Quem tem reserva lida melhor com ele.</p></details>
   <details><summary>Necessidade e desejo</summary><p>Necessidade é o que você precisa para estudar, trabalhar e viver bem. Desejo é um extra. Prioridade primeiro, depois o resto.</p><p class="eduGame">No jogo: as 9 necessidades são os principais objetivos. Lazer e upgrades são escolhas adicionais.</p></details>
@@ -2791,8 +2802,13 @@ let BLACK_FRIDAY_MONTH=10;
 let COURSE_MONTHS=[2,3],INVEST_MONTHS=[2,5],SURPRISE_MONTH=6;
 const LIFESTYLE_MONTHS=[];
 let COURSE_DELAY=6;
+// 28.0: reserva de referência para recomendações; não gera mais bônus de pontos.
 function reserveGoal(){return MONTHS===8?2000:3000;}
-function scoreThreshold(base){return Math.round(base*(MONTHS===8?.52:1));}
+// 28.0 (síntese V33): guardar pontua pelo saldo mantido, não pelo depósito.
+const RESERVE_POINT_UNIT=200,CAPITAL_POINT_UNIT=100,INTEREST_POINT_UNIT=10,SURPRISE_AMOUNT=1000,SURPRISE_PENALTY=30;
+// 28.0: faixas da partida curta recalibradas por simulação (tools/simular-pontuacao.mjs) após as regras da síntese V33.
+const SHORT_BAND_THRESHOLDS={500:240,450:220,360:190,270:140};
+function scoreThreshold(base){return MONTHS===8&&SHORT_BAND_THRESHOLDS[base]?SHORT_BAND_THRESHOLDS[base]:Math.round(base*(MONTHS===8?.52:1));}
 function finalMonthName(){return MONTH_NAMES[MONTHS-1].toLowerCase();}
 let INITIAL_CREDIT_LIMIT=3000;
 function difficultyLabel(limit=INITIAL_CREDIT_LIMIT){return Number(limit)<=2000?"Iniciante":Number(limit)<=3500?"Intermediário":"Avançado";}
@@ -2841,8 +2857,8 @@ function updateSetupUI(){
  document.querySelectorAll("#durationChoices [data-months]").forEach(b=>{const selected=Number(b.dataset.months)===MONTHS;b.classList.toggle("selected",selected);b.setAttribute("aria-pressed",String(selected));});
  document.getElementById("durationTag").textContent=MONTHS+" meses";
  document.getElementById("durationNote").textContent=MONTHS===8
-  ?"Janeiro–agosto • sem 13º e Black Friday. Curso com retorno em 3 meses; reserva-alvo de R$ 2.000. Faixas de pontuação próprias para o modo curto."
-  :`Janeiro–dezembro • inclui 13º e Black Friday. Curso com retorno em 6 meses; reserva-alvo de ${money(reserveGoal())}.`;
+  ?"Janeiro–agosto • sem 13º e Black Friday. Curso com retorno em 3 meses. Faixas de pontuação próprias para o modo curto."
+  :"Janeiro–dezembro • inclui 13º e Black Friday. Curso com retorno em 6 meses.";
  document.getElementById("durationGoalsLabel").textContent=MONTHS+" meses • "+(MONTHS===8?"partida curta.":"experiência completa.");
  document.getElementById("calendarGoalsNote").textContent=MONTHS===8
   ?"De janeiro a agosto: sem 13º e Black Friday. O retorno do curso ocorre após 3 meses."
@@ -3093,11 +3109,12 @@ function problematicCardDebt(t){
 const debtPenaltyPts=t=>Math.max(0,Number(t.debtPenaltyAccumulated)||0);
 const currentDebtPenaltyPts=t=>Math.floor(problematicCardDebt(t)/100)*1.5;
 const coursePts=t=>Math.max(0,Number(t.courseBenefitPoints)||0);
-const contributionPts=t=>Math.max(0,Number(t.investmentContributionPoints)||0);
+const savingsGoalPts=t=>Math.max(0,Number(t.savingsGoalBonusPoints)||0);
+const capitalPts=t=>Math.max(0,Number(t.capitalBenefitPoints)||0);
 const rescuePenaltyPts=t=>Math.max(0,Number(t.investmentRescuePenalty)||0);
-const apparent=t=>Math.max(0,Math.floor((t.otherPoints||0)+derivedUsePoints(t)+investPts(t)+contributionPts(t)+coursePts(t)+needsBonusPts(t)-rescuePenaltyPts(t)-debtPenaltyPts(t)-interestPts(t)-(t.obligationPenalty||0)-(t.surprisePenalty||0)));
+const apparent=t=>Math.max(0,Math.floor((t.otherPoints||0)+derivedUsePoints(t)+investPts(t)+savingsGoalPts(t)+capitalPts(t)+coursePts(t)+needsBonusPts(t)-rescuePenaltyPts(t)-debtPenaltyPts(t)-interestPts(t)-(t.obligationPenalty||0)-(t.surprisePenalty||0)));
 const liveScore=t=>apparent(t);
-const interestPts=t=>Math.floor((Math.max(0,Number(t.interestPaid)||0)+Math.max(0,unpaidFinancialCharges(t)||0))/100)*2;
+const interestPts=t=>Math.floor((Math.round((Math.max(0,Number(t.interestPaid)||0)+Math.max(0,unpaidFinancialCharges(t)||0))*100)/100+0.000001)/INTEREST_POINT_UNIT);
 const debt=t=>problematicCardDebt(t);
 const expense=t=>t?.fixedCosts??BASE_COST;
 const raisedSalary=t=>t.initialIncome?Math.round(t.initialIncome*120)/100:RAISED_SALARY;
@@ -3457,13 +3474,8 @@ function startMonth(){
      auditEvent(t,"investmentYield",{before:beforeInvestment,yield:yieldAmount,after:afterInvestment,rate:.01});
    }
 
-   // 17.2: a reserva mantida transforma patrimônio em benefício mensal.
-   // Janeiro começa sem aplicação; nas viradas seguintes, cada R$250 completos vale +1 ponto.
-   if(state.month>0){
-     const reservePts=Math.floor(Math.max(0,t.investment||0)/250);
-     t.investmentBenefitPoints=(t.investmentBenefitPoints||0)+reservePts;
-     if(reservePts>0)auditEvent(t,"investmentBenefit",{points:reservePts,balance:t.investment,unit:250});
-   }
+   // 28.0: a cada fechamento mensal, cada R$200 completos aplicados vale +1 ponto; o depósito em si não pontua.
+   if(state.month>0)reserveClosingPoints(t,state.month);
 
    // O rotativo pode durar um ciclo; se persistir, vira parcelamento da fatura.
    convertOldRevolving(t);
@@ -3848,7 +3860,7 @@ function addMonthlyUseBenefits(t){
  });
 }
 
-function rescueInvestment(t,amount){
+function rescueInvestment(t,amount,exempt=false){
  const take=Math.min(amount,t.investment);
  if(take<=0)return 0;
  const before=t.investment;
@@ -3869,14 +3881,14 @@ function rescueInvestment(t,amount){
    ?Math.max(0,Math.min(1,earnedAfter/(t.investmentMonths||1)))
    :1;
 
- // 17.3: cada R$100 completos resgatados retiram 1 ponto.
- const rescuePenalty=Math.floor(Math.max(0,take)/100);
+ // 17.3: cada R$100 completos resgatados retiram 1 ponto. 28.0: resgate para o imprevisto é isento.
+ const rescuePenalty=exempt?0:Math.floor(Math.max(0,take)/100);
  if(rescuePenalty>0)t.investmentRescuePenalty=(t.investmentRescuePenalty||0)+rescuePenalty;
 
  auditEvent(t,"investmentRescue",{
    amount:take,balance:t.investment,
    habitPointsBefore:earnedBefore,habitPointsAfter:earnedAfter,
-   rescuePenalty,totalRescuePenalty:t.investmentRescuePenalty||0
+   rescuePenalty,exempt,totalRescuePenalty:t.investmentRescuePenalty||0
  });
  return take;
 }
@@ -4297,40 +4309,67 @@ function applyInvoice(t){
  t.invoiceMinimum=0;
  t.choice=null;
 }
+function reserveClosingPoints(t,month){
+ const reservePts=Math.floor((Math.round(Math.max(0,t.investment||0)*100)/100+0.000001)/RESERVE_POINT_UNIT);
+ t.investmentBenefitPoints=(t.investmentBenefitPoints||0)+reservePts;
+ if(reservePts>0)auditEvent(t,"investmentBenefit",{points:reservePts,balance:t.investment,unit:RESERVE_POINT_UNIT,closingMonth:month});
+}
+// 28.0: último fechamento (rendimento + pontos do saldo) e patrimônio líquido, uma única vez no encerramento.
+function closeFinalReserveMonth(){
+ state.teams.forEach(t=>{
+   if(t.finalReserveClosed)return;
+   if(t.investment>0){
+     const before=Math.round(t.investment*100)/100,after=Math.round(before*1.01*100)/100;
+     t.investment=after;
+     auditEvent(t,"investmentYield",{before,yield:Math.round((after-before)*100)/100,after,rate:.01});
+   }
+   reserveClosingPoints(t,MONTHS);
+   const assets=Math.round((Math.max(0,t.cash||0)+Math.max(0,t.investment||0))*100)/100;
+   const liabilities=Math.round(Math.max(0,totalBankDebt(t))*100)/100;
+   const capital=Math.round((assets-liabilities)*100)/100;
+   t.capitalBenefitPoints=Math.max(0,Math.floor((capital+0.000001)/CAPITAL_POINT_UNIT));
+   auditEvent(t,"capitalBenefit",{points:t.capitalBenefitPoints,capital,assets,liabilities,cash:t.cash,investment:t.investment});
+   t.finalReserveClosed=true;
+ });
+}
+function reserveDepositTiers(t){
+ const target=Math.round((t.grossSalary||BASE_GROSS_SALARY)*.10);
+ return [target,Math.round(target*.8/10)*10,Math.round(target*.4/10)*10];
+}
 function applyMonthlyContributions(){
  state.teams.forEach(t=>{
    if(t.lastContributionMonth===state.month)return;
 
-   // 18.2: saldo no rotativo NÃO bloqueia o aporte.
-   // Se o jogador tiver caixa suficiente e mantiver a aplicação ativa, ele pode aplicar normalmente;
-   // a dívida continua sofrendo juros e todas as penalizações próprias do cartão.
-
+   // 28.0 (síntese V33): o aporte só acontece com a fatura integralmente quitada.
+   // Sem saldo para a meta (10% do bruto), aplica 80% ou 40% dela; só a meta completa vale +1 ponto.
    let investedThisMonth=false;
+   const invoiceOpen=t.delinquent||problematicCardDebt(t)>.009;
+   t.reserveSkippedReason="";
 
-   if(t.investmentActive){
-     const target=Math.round((t.grossSalary||BASE_GROSS_SALARY)*.10);
-     if(t.cash>=target){
-       t.cash-=target;
-       t.investment+=target;
+   if(t.investmentActive&&invoiceOpen)t.reserveSkippedReason="fatura";
+   else if(t.investmentActive){
+     const [target]=reserveDepositTiers(t);
+     const amount=reserveDepositTiers(t).find(v=>v>0&&t.cash+.005>=v)||0;
+     if(amount){
+       const goalReached=amount===target;
+       t.cash=Math.round((t.cash-amount)*100)/100;
+       t.investment=Math.round(((t.investment||0)+amount)*100)/100;
        t.investmentMonths=(t.investmentMonths||0)+1;
-       if(!Number.isFinite(Number(t.investmentHabitPoints))){
-         t.investmentHabitPoints=Math.max(0,(t.investmentMonths-1)*(t.investmentBonusFactor??1));
-       }
-       t.investmentHabitPoints=Math.max(0,Number(t.investmentHabitPoints)||0)+1;
-       t.investmentBonusFactor=(t.investmentMonths||0)>0
-         ?Math.max(0,Math.min(1,t.investmentHabitPoints/t.investmentMonths))
-         :1;
-       const contributionBonus=Math.floor(Math.max(0,target)/100);
-       t.investmentContributionPoints=(t.investmentContributionPoints||0)+contributionBonus;
-       auditEvent(t,"investmentContribution",{amount:target,balance:t.investment,habitPoints:t.investmentHabitPoints,contributionBonus,totalContributionPoints:t.investmentContributionPoints});
+       t.reserveDepositsTotal=Math.round(((t.reserveDepositsTotal||0)+amount)*100)/100;
+       if(goalReached)t.savingsGoalBonusPoints=(t.savingsGoalBonusPoints||0)+1;
+       auditEvent(t,"investmentContribution",{amount,balance:t.investment,goal:target,goalReached,totalDeposited:t.reserveDepositsTotal});
+       if(goalReached)auditEvent(t,"savingsGoalBonus",{amount,points:1});
+       t.reserveLastApplied=amount;
        investedThisMonth=true;
-     }
+     }else t.reserveSkippedReason="saldo";
    }
 
    t.lastContributionMonth=state.month;
 
    if(t.investmentActive&&!investedThisMonth){
-     t.feedback="ℹ️ Neste mês não houve saldo suficiente na conta para guardar 10% na aplicação. A opção continua ativa para os próximos meses.";
+     t.feedback=t.reserveSkippedReason==="fatura"
+       ?"ℹ️ Neste mês não houve aplicação: o aporte só acontece com a fatura integralmente quitada. Pagar o cartão primeiro evita juros maiores que o rendimento. A opção continua ativa."
+       :"ℹ️ Neste mês não houve saldo suficiente na conta para aplicar. A opção continua ativa para os próximos meses.";
    }
  });
 }
@@ -4437,7 +4476,7 @@ function goalsPanel(t){
      <b>🏦 Reserva financeira</b>
      <div class="needChecks">
        <span class="needCheck ${reserveDone?"done":""}">
-         <span class="needBox">${reserveDone?"✓":""}</span>${money(reserveGoal())} ou mais aplicados ao final — +20 pts
+         <span class="needBox">${reserveDone?"✓":""}</span>Reserva de referência: ${money(reserveGoal())} aplicados (pontos vêm do saldo em cada fechamento)
        </span>
      </div>
    </div>
@@ -5093,42 +5132,28 @@ function renderInvest(){
 
  bind();
 }
+// 28.0 (síntese V33): imprevisto de R$ 1.000 pago só com conta e reserva, sem crédito.
+// Resgatar a aplicação para ele é a finalidade da reserva e não perde pontos; sem recursos, −30 pontos.
 function canResolveSurprise(t){
- const amount=600;
- if(t.cash>=amount)return true;
- if((t.cash||0)+(t.investment||0)>=amount)return true;
- if(state.month<MONTHS-1 && canUseCard(t,amount))return true;
- if(t.investment>0 && state.month<MONTHS-1){
-   const remaining=Math.max(0,amount-(t.cash||0)-(t.investment||0));
-   if(remaining>0 && canUseCard(t,remaining))return true;
- }
- return false;
+ return (t.cash||0)+(t.investment||0)+.001>=SURPRISE_AMOUNT;
 }
-
 function renderSurprise(){
- document.getElementById("stageTitle").textContent="🔧 Imprevisto obrigatório — R$ 600";
- document.getElementById("stageDesc").textContent="O imprevisto precisa ser resolvido. Se não houver recursos suficientes, a obrigação ficará sem solução e haverá perda de 15 pontos.";
+ document.getElementById("stageTitle").textContent=`🔧 Imprevisto obrigatório — ${money(SURPRISE_AMOUNT)}`;
+ document.getElementById("stageDesc").textContent=`O imprevisto precisa ser pago com o saldo em conta e a reserva; o cartão não pode ser usado. Resgatar a aplicação para isso não perde pontos. Sem recursos suficientes, a obrigação fica sem solução e custa ${SURPRISE_PENALTY} pontos.`;
 
  setTeamsMarkup(state.teams.map((t,i)=>{
    let body="";
-   if(t.cash>=600)body+=opt(i,"solveCash","💵 Pagar com saldo em conta — R$ 600");
-
-   if(t.investment>0){
-     const liquid=(t.cash||0)+(t.investment||0);
-     const remainder=Math.max(0,600-liquid);
-     if(remainder<=0 || (state.month<MONTHS-1 && canUseCard(t,remainder))){
-       body+=opt(i,"solveInvest",`📈 Usar aplicação${t.investment<600?" + outros recursos":""} para resolver o imprevisto`);
-     }
+   if(t.cash+.001>=SURPRISE_AMOUNT)body+=opt(i,"solveCash",`💵 Pagar com saldo em conta — ${money(SURPRISE_AMOUNT)}`);
+   if(t.investment>0 && canResolveSurprise(t)){
+     const fromCash=Math.min(SURPRISE_AMOUNT,Math.max(0,t.cash||0)),fromInv=Math.round((SURPRISE_AMOUNT-fromCash)*100)/100;
+     body+=opt(i,"solveInvest",t.cash+.001>=SURPRISE_AMOUNT
+       ?`📈 Pagar com resgate da aplicação — ${money(Math.min(SURPRISE_AMOUNT,t.investment))} (sem penalidade)`
+       :`📈 Conta ${money(fromCash)} + resgate ${money(fromInv)} da aplicação (sem penalidade)`);
    }
-
-   if(state.month<MONTHS-1 && canUseCard(t,600)){
-     body+=opt(i,"solveSpecial","💳 Pagar no crédito em 1x — R$ 600 na próxima fatura");
-   }
-
    if(!canResolveSurprise(t)){
-     body+=opt(i,"unresolvedSurprise","🚨 Não tenho recursos para resolver — −15 pontos");
+     body+=opt(i,"unresolvedSurprise",`🚨 Não tenho recursos para resolver — −${SURPRISE_PENALTY} pontos`);
      body+=`<div class="specialWarning"><div class="specialWarningTitle">⚠️ SEM RECURSOS SUFICIENTES</div>
-       <div>Você não consegue pagar R$ 600 com saldo, aplicação ou crédito disponível. O imprevisto ficará sem solução.</div>
+       <div>Conta e aplicação somam ${money((t.cash||0)+(t.investment||0))}, menos que ${money(SURPRISE_AMOUNT)}. O crédito não pode ser usado para esta despesa; o imprevisto ficará sem solução.</div>
      </div>`;
    }
    return shell(t,i,body);
@@ -5136,57 +5161,26 @@ function renderSurprise(){
  bind();
 }
 
+function unresolvedSurprise(t,message){
+ t.surprisePenalty=(t.surprisePenalty||0)+SURPRISE_PENALTY;
+ t.unresolvedSurprises=(t.unresolvedSurprises||0)+1;
+ auditEvent(t,"unresolvedSurprise",{penalty:SURPRISE_PENALTY});
+ t.feedback=`🚨 ${message} −${SURPRISE_PENALTY} pontos.`;
+}
 function applySurprise(t){
- const amount=600;
-
- if(t.choice==="unresolvedSurprise"){
-   t.surprisePenalty=(t.surprisePenalty||0)+15;
-   t.unresolvedSurprises=(t.unresolvedSurprises||0)+1;
-   auditEvent(t,"unresolvedSurprise",{penalty:15});
-   t.feedback="🚨 Você não resolveu um imprevisto obrigatório importante. −15 pontos.";
-   return;
+ const amount=SURPRISE_AMOUNT;
+ if(t.choice==="unresolvedSurprise" || !canResolveSurprise(t)){
+   return unresolvedSurprise(t,"Você não resolveu um imprevisto obrigatório importante.");
  }
-
- if(t.choice==="solveInvest"){
-   const rescued=rescueInvestment(t,amount);
-   const rest=Math.max(0,amount-rescued);
-   if(rest<=0){t.feedback="📈 O imprevisto de R$ 600 foi pago com resgate da aplicação.";return;}
-   const fromCash=Math.min(t.cash,rest);
-   t.cash-=fromCash;
-   const onCard=rest-fromCash;
-   if(onCard<=0){t.feedback=`📈 Foram resgatados ${money(rescued)} da aplicação e ${money(fromCash)} saíram da conta.`;return;}
-   if(canUseCard(t,onCard) && state.month<MONTHS-1){
-     t.cardUsed+=onCard;
-     t.debts.push({name:"Imprevisto obrigatório — crédito 1x",balance:onCard,installment:onCard,remaining:1,originalInstallments:1,totalInstallments:1,kind:"credit1",principal:onCard});
-     auditEvent(t,"surpriseCredit",{amount:onCard,method:"credit1"});
-     t.feedback=`📈 Foram resgatados ${money(rescued)} da aplicação, usados ${money(fromCash)} da conta e ${money(onCard)} foram para o cartão em 1x.`;
-     return;
-   }
-   t.surprisePenalty=(t.surprisePenalty||0)+15;
-   t.unresolvedSurprises=(t.unresolvedSurprises||0)+1;
-   auditEvent(t,"unresolvedSurprise",{penalty:15});
-   t.feedback="🚨 Você não conseguiu resolver integralmente o imprevisto obrigatório. −15 pontos.";
-   return;
- }
-
- if(t.choice==="solveCash"){
-   if(t.cash>=amount){t.cash-=amount;t.feedback="🔧 Imprevisto de R$ 600 pago integralmente com saldo em conta.";}
-   else{t.surprisePenalty=(t.surprisePenalty||0)+15;t.unresolvedSurprises=(t.unresolvedSurprises||0)+1;t.feedback="🚨 O saldo deixou de ser suficiente para resolver o imprevisto. −15 pontos.";}
-   return;
- }
-
- if(t.choice==="solveSpecial"){
-   if(!canUseCard(t,amount) || state.month>=MONTHS-1){
-     t.surprisePenalty=(t.surprisePenalty||0)+15;
-     t.unresolvedSurprises=(t.unresolvedSurprises||0)+1;
-     t.feedback="🚨 O crédito não estava disponível e o imprevisto obrigatório não foi resolvido. −15 pontos.";
-     return;
-   }
-   t.cardUsed+=amount;
-   t.debts.push({name:"Imprevisto obrigatório — crédito 1x",balance:amount,installment:amount,remaining:1,originalInstallments:1,totalInstallments:1,kind:"credit1",principal:amount});
-   auditEvent(t,"surpriseCredit",{amount,method:"credit1"});
-   t.feedback="💳 Imprevisto de R$ 600 lançado no crédito em 1x. O valor será cobrado na próxima fatura.";
- }
+ // solveSpecial (crédito) vem de partidas salvas antes da 28.0 e passa a usar conta + reserva.
+ const useInvestment=t.choice!=="solveCash" || t.cash+.001<amount;
+ const rescued=useInvestment?rescueInvestment(t,t.choice==="solveInvest"?Math.min(amount,t.investment):Math.max(0,amount-t.cash),true):0;
+ const fromCash=Math.round((amount-rescued)*100)/100;
+ t.cash=Math.round((t.cash-fromCash)*100)/100;
+ auditEvent(t,"surprisePaid",{amount,cash:fromCash,investment:rescued});
+ t.feedback=rescued>0
+   ?`📈 Imprevisto de ${money(amount)} pago: ${money(fromCash)} da conta + ${money(rescued)} resgatados da aplicação, sem penalidade. Essa é a finalidade da reserva.`
+   :`🔧 Imprevisto de ${money(amount)} pago integralmente com saldo em conta.`;
 }
 
 function renderFeedback(){
@@ -5677,12 +5671,15 @@ function finalBreakdown(t){
  const useBenefit=derivedUsePoints(t);
  const cash=0;
  const monthlyApplication=Math.max(0,Number(t.investmentBenefitPoints)||0);
- const finalApplication=Math.floor(Math.max(0,Number(t.finalExtraInvestment)||0)/100);
- const contributionPoints=Math.max(0,Number(t.investmentContributionPoints)||0);
+ // 28.0: aporte final, pontos por depósito e bônus fixo de reserva saem; entram meta mensal e patrimônio líquido.
+ const finalApplication=0;
+ const contributionPoints=0;
  const rescuePenalty=Math.max(0,Number(t.investmentRescuePenalty)||0);
- const application=monthlyApplication+finalApplication+contributionPoints;
+ const application=monthlyApplication;
+ const savingsGoalBonus=savingsGoalPts(t);
+ const capitalBenefit=capitalPts(t);
  const applicationHabit=0;
- const reserveGoalBonus=(t.investment||0)>=reserveGoal()?20:0;
+ const reserveGoalBonus=0;
  const courseBenefit=Math.max(0,Number(t.courseBenefitPoints)||0);
  const other=Number(t.otherPoints||0);
  const needsBonus=needsBonusPts(t);
@@ -5696,11 +5693,11 @@ function finalBreakdown(t){
  const debtPts=monthlyDebtPts+finalDebtPts;
  const unpaidInterestCharges=unpaidFinancialCharges(t);
  const totalInterestCost=Math.max(0,Number(t.interestPaid)||0)+Math.max(0,unpaidInterestCharges||0);
- const interestCost=Math.floor(totalInterestCost/100)*2;
+ const interestCost=Math.floor((Math.round(totalInterestCost*100)/100+0.000001)/INTEREST_POINT_UNIT);
  const needs=needsSummary(t);
- const positive=useBenefit+application+reserveGoalBonus+courseBenefit+other+needsBonus;
+ const positive=useBenefit+application+savingsGoalBonus+capitalBenefit+courseBenefit+other+needsBonus;
  const total=Math.max(0,Math.floor(positive-rescuePenalty-debtPts-interestCost-obligationPenalty-surprisePenalty));
- return withRaceBonus({productBase,useBenefit,cash,application,monthlyApplication,finalApplication,contributionPoints,rescuePenalty,applicationHabit,reserveGoalBonus,courseBenefit,other,needsBonus,
+ return withRaceBonus({productBase,useBenefit,cash,application,savingsGoalBonus,capitalBenefit,monthlyApplication,finalApplication,contributionPoints,rescuePenalty,applicationHabit,reserveGoalBonus,courseBenefit,other,needsBonus,
    debtPts,monthlyDebtPts,finalDebtPts,problematicDebt,plannedDebt,interestCost,surprisePenalty,obligationPenalty,unpaidInterestCharges,needs,audit,total});
 }
 function finalScore(t){
@@ -5758,8 +5755,10 @@ function renderFinalInvestmentResult(){
 }
 
 function finish(force=false){
- if(!force && !state.finalInvestmentDone){state.stage="finalInvestment";return render();}
+ // 28.0: sem etapa de aporte final; conta e aplicação valem igualmente no patrimônio líquido.
+ if(!force && !state.finalInvestmentDone)state.finalInvestmentDone=true;
  state.resultPartial=!state.finalInvestmentDone;
+ if(!state.resultPartial)closeFinalReserveMonth();
  state.finished=false;
  state.stage="finalBoard";
  if(typeof storyCaptureQuarter==="function" && !isPartialResult())storyCaptureQuarter(MONTHS);
@@ -5887,17 +5886,18 @@ function renderFinalDetails(){
        <tbody>
          ${scoreRow("⭐ Benefícios dos produtos",b.useBenefit,b.useBenefit>0?"Pontuação acumulada pelo tempo de uso dos bens":"Nenhum benefício de produto acumulado")}
          <tr><td>💰 13º salário recebido</td><td><b>Informativo</b></td><td>${MONTHS===12?money(t.thirteenthTotal||0)+" recebidos entre novembro e dezembro":"Não se aplica ao calendário janeiro–agosto"}</td></tr>
-         ${scoreRow("📈 Benefício da reserva",b.application,`Saldo mantido mês a mês: ${b.monthlyApplication} pts • aportes: ${b.contributionPoints} pts • aporte final: ${b.finalApplication} pts sobre ${money(t.finalExtraInvestment||0)} • saldo aplicado: ${money(t.investment||0)}`)}
-         ${b.reserveGoalBonus?scoreRow("🏦 Meta final da reserva",b.reserveGoalBonus,`${money(reserveGoal())} ou mais aplicados no encerramento`):""}
+         ${scoreRow("🏦 Pontos mensais pelo saldo aplicado",b.application,`${reserveClosingSummary(t)||"Nenhum fechamento com saldo aplicado"}. Cada ${money(RESERVE_POINT_UNIT)} completos aplicados rendem 1 ponto em cada fechamento; o depósito em si não pontua.`)}
+         ${b.savingsGoalBonus?scoreRow("🎯 Metas mensais de poupança atingidas",b.savingsGoalBonus,`${b.savingsGoalBonus} mês(es) com o aporte completo da meta (10% do salário bruto) • +1 ponto em cada mês da meta`):""}
+         ${b.capitalBenefit||b.capitalBenefit===0?scoreRow("💰 Patrimônio líquido no encerramento",b.capitalBenefit,capitalSummary(t)):""}
          ${b.courseBenefit?scoreRow("🎓 Qualificação profissional",b.courseBenefit,`${(t.coursePointMonths||[]).length} mês(es) × 4 pts`):""}
-         ${b.rescuePenalty>0?scoreRow("📤 Resgates da aplicação",b.rescuePenalty,"−1 ponto por cada R$ 100 completos resgatados",true):""}
+         ${b.rescuePenalty>0?scoreRow("📤 Resgates da aplicação",b.rescuePenalty,"−1 ponto por cada R$ 100 completos resgatados; o resgate para o imprevisto é isento",true):""}
          ${scoreRow("✨ Outras decisões",b.other,"Demais efeitos diretos")}
          ${b.needsBonus?scoreRow("🎯 Principais objetivos",b.needsBonus,"Todas as 9 necessidades atendidas"):""}
          <tr><td>🧩 Necessidades atendidas</td><td><b>Informativo</b></td><td>${needs.done}/${needs.total}${needs.missingLabels.length?` • Não atendidas: ${needs.missingLabels.join(", ")}`:" • Todas atendidas"}</td></tr>
-         ${b.surprisePenalty>0?scoreRow("🔧 Imprevisto obrigatório não resolvido",b.surprisePenalty,`${t.unresolvedSurprises||1} ocorrência(s) • −15 pontos por ocorrência`,true):""}
+         ${b.surprisePenalty>0?scoreRow("🔧 Imprevisto obrigatório não resolvido",b.surprisePenalty,`${t.unresolvedSurprises||1} ocorrência(s) • −${SURPRISE_PENALTY} pontos por ocorrência`,true):""}
          ${b.obligationPenalty>0?scoreRow("📅 Penalidade por gestão da fatura",b.obligationPenalty,`−5 pts por ciclo no mínimo/rotativo • −10 pts por ciclo abaixo do mínimo/sem pagar`,true):""}
          <tr><td>📅 Gestão das obrigações</td><td><b>Informativo</b></td><td>${t.invoicePaidMonths||0} ciclo(s) pagos integralmente • ${t.minimumCarryMonths||0} ciclo(s) pagando ao menos o mínimo e carregando saldo • ${t.delinquentMonths||0} ciclo(s) abaixo do mínimo/sem pagamento • penalidade comportamental acumulada −${Math.max(0,Number(t.obligationPenalty)||0)} pts</td></tr>
-         ${b.interestCost>0?scoreRow("💸 Custo total dos juros",b.interestCost,`${money(t.interestPaid||0)} pagos + ${money(b.unpaidInterestCharges||0)} ainda devidos • −2 pts por R$ 100 completos`,true):`<tr><td>💸 Custo total dos juros</td><td><b>0 pts</b></td><td>${money(t.interestPaid||0)} pagos + ${money(b.unpaidInterestCharges||0)} ainda devidos • sem R$ 100 completos para penalização</td></tr>`}
+         ${b.interestCost>0?scoreRow("💸 Custo total dos juros",b.interestCost,`${money(t.interestPaid||0)} pagos + ${money(b.unpaidInterestCharges||0)} ainda devidos • −1 pt por ${money(INTEREST_POINT_UNIT)} completos`,true):`<tr><td>💸 Custo total dos juros</td><td><b>0 pts</b></td><td>${money(t.interestPaid||0)} pagos + ${money(b.unpaidInterestCharges||0)} ainda devidos • sem ${money(INTEREST_POINT_UNIT)} completos para penalização</td></tr>`}
          
          
          ${scoreRow("💳 Dívida problemática em aberto",b.debtPts,`Mensal acumulado: −${b.monthlyDebtPts} pts • encerramento: −${b.finalDebtPts} pts • saldo final: ${money(b.problematicDebt||0)} • regra mensal: −1,5 pt por R$ 100 em cada virada • encerramento: −2 pts por R$ 100 • parcelas normais em dia não são penalizadas`,true)}
@@ -5911,6 +5911,27 @@ function renderFinalDetails(){
  }).join(""));
 }
 
+function reserveClosingSummary(t){
+ const short=MONTH_NAMES.map(m=>m.slice(0,1)+m.slice(1,3).toLowerCase());
+ return (t.auditLog||[]).filter(e=>e.type==="investmentBenefit").map(e=>{
+   const m=Number(e.closingMonth??(Number(e.month)||1)-1);
+   return `${short[Math.max(0,m-1)]||"Mês "+m}: ${money(e.balance)} = +${e.points}`;
+ }).join(" • ");
+}
+function capitalSummary(t){
+ const e=(t.auditLog||[]).filter(x=>x.type==="capitalBenefit").pop();
+ if(!e)return "Apurado uma única vez no encerramento: conta + aplicação − todas as dívidas do cartão.";
+ return `Apuração única no encerramento: conta ${money(e.cash)} + aplicação ${money(e.investment)} − dívidas ${money(e.liabilities)} = ${money(e.capital)} → +${e.points} pt(s). +1 ponto por ${money(CAPITAL_POINT_UNIT)} completos de patrimônio positivo.`;
+}
+function interestEducationalMessage(t){
+ const ip=totalCreditCost(t);
+ if(ip<=0)return "Você não pagou juros, evitando esse custo adicional.";
+ if(ip<=100)return `Você pagou ${money(ip)} em juros. O custo foi reduzido, mas vale procurar alternativas para preservar seu dinheiro.`;
+ if(ip<=200)return `Você pagou ${money(ip)} em juros. Embora o valor não seja elevado, os juros são um custo adicional; sempre que possível, procure reduzi-los.`;
+ if(ip<=600)return `Você pagou ${money(ip)} em juros. Esse custo merece atenção: antes de contratar crédito, compare o valor total a pagar e avalie alternativas com menos juros.`;
+ if(ip<=1200)return `Você pagou ${money(ip)} em juros, elevando bastante seus gastos. Compare as condições de crédito e reduza os encargos para preservar recursos para outras prioridades.`;
+ return `Você pagou ${money(ip)} em juros. Esse custo elevado compromete uma parcela importante dos seus recursos. Reavalie os encargos e priorize alternativas de menor custo.`;
+}
 function strategyLevel(total){
  if(total>=scoreThreshold(500))return "🏆 Estratégia Excelente";
  if(total>=scoreThreshold(450))return "🎯 Estratégia Muito Boa";
@@ -5961,6 +5982,8 @@ function creditUsageProfile(t){
 function resultDiagnosticLabel(t,b){
  const base=strategyLevel(b.total);
  if(b.total>=scoreThreshold(360))return base;
+ // 28.0 (síntese V33): sem problema financeiro relevante, a faixa baixa indica desafio incompleto, não crise.
+ if(!hasRelevantFinancialProblem(t,b))return b.total>=scoreThreshold(270)?"🧩 Desafio parcialmente cumprido":"🧩 Desafio pouco cumprido";
  // A faixa numérica continua sendo a mesma. A causa predominante define o nome.
  if(hasRelevantFinancialProblem(t,b)){
    return b.total>=scoreThreshold(270)?"⚠️ Estratégia Vulnerável":"🚨 Estratégia Crítica";
@@ -6023,7 +6046,7 @@ function financialIndicators(t,b){
    {key:"needs",name:"Atendimento das necessidades",detail:`${n.done}/${n.total} atendidas${n.missingLabels.length?` • faltaram: ${n.missingLabels.join(", ")}`:" • todas atendidas"}`,status:indicatorStatus("needs",t,b)},
    {key:"use",name:"Pontuação dos produtos",detail:`${b.useBenefit||0} pts gerados pelos produtos`,status:indicatorStatus("use",t,b)},
    {key:"credit",name:"Uso do crédito",detail:credit.count?`${credit.count} operação(ões) no crédito em ${credit.monthCount} mês(es), incluindo compras, curso e imprevistos registrados`:(credit.label==="Não utilizou crédito"?"Nenhum uso registrado":"Uso identificado nos saldos ou pagamentos; detalhamento antigo indisponível"),status:{label:credit.label,icon:credit.icon,rank:credit.rank}},
-   {key:"interest",name:"Custo do crédito",detail:`${money(t.interestPaid||0)} pagos + ${money(unpaidFinancialCharges(t))} em aberto = ${money(totalCreditCost(t))} de encargos contabilizados`,status:indicatorStatus("interest",t,b)}
+   {key:"interest",name:"Custo do crédito",detail:`${money(t.interestPaid||0)} pagos + ${money(unpaidFinancialCharges(t))} em aberto = ${money(totalCreditCost(t))} de encargos contabilizados. ${interestEducationalMessage(t)}`,status:indicatorStatus("interest",t,b)}
  ];
 }
 function strategyDiagnosis(t){
@@ -6077,8 +6100,8 @@ function renderStrategyFeedback(){
      <div class="strategyScaleItem"><b>🏆 Excelente</b>${scoreThreshold(500)} pontos ou mais</div>
      <div class="strategyScaleItem"><b>🎯 Muito Boa</b>${scoreThreshold(450)} a ${scoreThreshold(500)-1} pontos</div>
      <div class="strategyScaleItem"><b>✅ Boa</b>${scoreThreshold(360)} a ${scoreThreshold(450)-1} pontos</div>
-     <div class="strategyScaleItem"><b>⚠️ Vulnerável ou 🎯 Baixo atendimento das necessidades</b>${scoreThreshold(270)} a ${scoreThreshold(360)-1} pontos</div>
-     <div class="strategyScaleItem"><b>🚨 Crítica ou 🎯 Baixo atendimento das necessidades</b>abaixo de ${scoreThreshold(270)} pontos</div>
+     <div class="strategyScaleItem"><b>🧩 Desafio parcialmente cumprido ou ⚠️ Vulnerável</b>${scoreThreshold(270)} a ${scoreThreshold(360)-1} pontos</div>
+     <div class="strategyScaleItem"><b>🧩 Desafio pouco cumprido ou 🚨 Crítica</b>abaixo de ${scoreThreshold(270)} pontos</div>
    </div>
  </div>
  <div class="strategyFeedbackGrid">${rank.map((r,pos)=>{
@@ -6153,7 +6176,7 @@ const RECOMMENDATION_MATRIX=[
 function recommendationContext(t,b=finalBreakdown(t)){
  const purchases=(t.auditLog||[]).filter(e=>e.type==="purchase");
  const contributions=(t.auditLog||[]).filter(e=>e.type==="investmentContribution");
- const rescues=(t.auditLog||[]).filter(e=>e.type==="investmentRescue");
+ const rescues=(t.auditLog||[]).filter(e=>e.type==="investmentRescue"&&!e.exempt);
  const obligations=(t.auditLog||[]).filter(e=>e.type==="obligationBehavior");
  const noPayCount=obligations.filter(e=>e.kind==="delinquent" && (e.paid||0)<=.01).length;
  const debitCount=purchases.filter(e=>String(e.method||"").toLowerCase().includes("debit")).length;
@@ -6206,7 +6229,7 @@ function recommendationContext(t,b=finalBreakdown(t)){
    score:b.total,lateMonths:t.delinquentMonths||0,minMonths:t.minimumCarryMonths||0,noPayCount,
    problemDebt:problematicCardDebt(t),interestPaid:t.interestPaid||0,totalInterestCost:(t.interestPaid||0)+unpaidFinancialCharges(t),reserve:(t.cash||0)+(t.investment||0),
    financialPenaltyLoad:financialPenaltyLoad(t,b),financialProblem:hasRelevantFinancialProblem(t,b)?1:0,
-   investmentMonths:t.investmentMonths||contributions.length||0,rescueCount:rescues.length,rescuePenalty:b.rescuePenalty||0,contributionPoints:b.contributionPoints||0,
+   investmentMonths:t.investmentMonths||contributions.length||0,rescueCount:rescues.length,rescuePenalty:b.rescuePenalty||0,savingsGoalMonths:b.savingsGoalBonus||0,
    courseTaken:t.courseTaken?1:0,courseBenefit:b.courseBenefit||0,
    needsDone:needs.done,needsTotal:needs.total,needsMissing:needs.missingLabels,useBenefit:b.useBenefit||0,
    purchaseCount:purchases.length,debitCount,creditPurchases,creditMonths,interestInstallmentCount,zeroInterestInstallmentCount,
@@ -6253,28 +6276,23 @@ function decemberAchievementRecommendation(c){
  if(travel && watch)action="realizar a viagem, adquirir o smartwatch";
  else if(travel)action="realizar a viagem";
  else action="adquirir o smartwatch";
- return {id:"dezembro_objetivos",category:"december",priority:118,type:"praise",title:`Encerramento com planejamento`,message:`No encerramento, você conseguiu ${action} e ainda atingiu sua meta de reserva financeira.`};
+ return {id:"dezembro_objetivos",category:"december",priority:118,type:"praise",title:`Encerramento com planejamento`,message:`No encerramento, você conseguiu ${action} e ainda manteve uma boa reserva financeira.`};
 }
+// 28.0: a recomendação descreve a constância dos aportes e o saldo mantido; não há mais bônus por meta final.
 function investmentRecommendation(c){
  const inv=Math.max(0,Number(c.investmentBalance)||0);
- const finalAdd=Math.max(0,Number(c.finalExtraInvestment)||0);
-
- if(inv>=reserveGoal() && finalAdd>0 && inv-finalAdd<reserveGoal()){
-   return {id:"investment_goal_final",category:"reserve",priority:112,type:"praise",title:"Meta de reserva alcançada no encerramento",message:`Você aproveitou o saldo que restou no encerramento, aplicou ${money(finalAdd)} e elevou sua reserva para ${money(inv)}. Assim, completou a meta de ${money(reserveGoal())} e garantiu o bônus de +20 pontos.`};
- }
+ const months=Math.max(0,Number(c.investmentMonths)||0),goals=Math.max(0,Number(c.savingsGoalMonths)||0);
+ const habit=months?`Você aplicou em ${months} de ${MONTHS} meses e completou a meta mensal (10% do salário bruto) em ${goals}, ganhando +${goals} ponto(s). `:"";
  if(inv>=reserveGoal()){
-   return {id:"investment_goal",category:"reserve",priority:110,type:"praise",title:"Meta de reserva alcançada",message:`Você terminou com ${money(inv)} aplicados e alcançou a meta de ${money(reserveGoal())}, garantindo +20 pontos. Uma reserva consistente amplia a segurança diante de imprevistos e reduz a necessidade de recorrer a dívidas.`};
- }
- if(inv>=reserveGoal()*2/3){
-   return {id:"investment_near_goal",category:"reserve",priority:104,type:"praise",title:"Boa reserva, próxima da meta",message:`Você terminou com ${money(inv)} aplicados. A reserva ficou próxima da meta de ${money(reserveGoal())}; manter os aportes e avaliar gastos menos prioritários poderia levar ao bônus final.`};
+   return {id:"investment_goal",category:"reserve",priority:110,type:"praise",title:"Reserva financeira bem administrada",message:`${habit}Você terminou com ${money(inv)} aplicados. Cada ${money(RESERVE_POINT_UNIT)} mantidos rendeu pontos em cada fechamento, e a reserva amplia a segurança diante de imprevistos sem recorrer a dívidas.`};
  }
  if(inv>=reserveGoal()/3){
-   return {id:"investment_building",category:"reserve",priority:92,type:"guidance",title:"Reserva em formação",message:`Você terminou com ${money(inv)} aplicados. É uma proteção importante, mas ainda há espaço para fortalecer a reserva e aumentar sua capacidade de enfrentar imprevistos sem depender do crédito.`};
+   return {id:"investment_building",category:"reserve",priority:92,type:"guidance",title:"Reserva em formação",message:`${habit}Você terminou com ${money(inv)} aplicados. É uma proteção importante; manter os aportes com a fatura em dia fortalece a reserva e os pontos de cada fechamento.`};
  }
  if(inv>0){
-   return {id:"investment_small",category:"reserve",priority:90,type:"guidance",title:"Reserva ainda pequena",message:`Você terminou com ${money(inv)} aplicados. O hábito já começou, mas a proteção financeira ainda é limitada; aportes regulares ajudam a construir uma margem mais segura.`};
+   return {id:"investment_small",category:"reserve",priority:90,type:"guidance",title:"Reserva ainda pequena",message:`${habit}Você terminou com ${money(inv)} aplicados. O hábito já começou, mas a proteção ainda é limitada; aportes regulares, sempre depois de quitar a fatura, constroem uma margem mais segura.`};
  }
- return {id:"investment_none",category:"reserve",priority:96,type:"correction",title:"Terminou sem reserva aplicada",message:"Você encerrou o jogo sem dinheiro na aplicação. Mesmo aportes pequenos e regulares ajudam a criar proteção para imprevistos e diminuem a dependência do crédito."};
+ return {id:"investment_none",category:"reserve",priority:96,type:"correction",title:"Terminou sem reserva aplicada",message:"Você encerrou o jogo sem dinheiro na aplicação. Aportes regulares, mesmo pequenos, ajudam a enfrentar imprevistos e geram pontos a cada fechamento pelo saldo mantido."};
 }
 function thirteenthRecommendation(c){
  if(c.thirteenthTotal<=0)return null;
@@ -8248,7 +8266,7 @@ storyQuarterCheck();
 function heritageSync(){
  const months=Number(document.getElementById('runMonths').value),count=Number(document.getElementById('runCount').value),team=document.getElementById('runFormat').value==='team',limit=Number(document.getElementById('runLimit').value);
  const hint=document.getElementById('heritageDurationHint');if(!hint)return;
- hint.textContent=months===12?'Janeiro–dezembro · inclui 13º e Black Friday. Curso com retorno em 6 meses; reserva-alvo de R$ 3.000.':'Janeiro–agosto · partida curta. Curso com retorno em 3 meses; reserva-alvo de R$ 2.000.';
+ hint.textContent=months===12?'Janeiro–dezembro · inclui 13º e Black Friday. Curso com retorno em 6 meses.':'Janeiro–agosto · partida curta. Curso com retorno em 3 meses.';
  document.getElementById('heritagePeopleTitle').firstChild.textContent='2. '+(team?'Quantas equipes vão jogar?':'Quantos jogadores vão participar?');
  document.getElementById('heritageSummary').textContent=(team?'👥 ':'👤 ')+count+' '+(team?(count===1?'equipe':'equipes'):(count===1?'jogador':'jogadores'))+' · '+months+' meses · '+difficultyLabel(limit)+' · '+money(limit)+' de crédito · '+raceMinutes(months,count,team?'team':'player',limit)+' min';
  document.getElementById('heritageLevelNote').textContent=limit<=2000?'Menor exposição ao crédito e mais tempo para organizar as decisões.':limit<=3500?'Mais possibilidades de escolha, com um prazo proporcionalmente menor.':'Maior exposição ao crédito e menos tempo: atenção aos compromissos futuros.';
