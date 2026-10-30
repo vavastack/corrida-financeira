@@ -6,6 +6,7 @@
     "build": "node tools/build.mjs",
     "check": "node tools/build.mjs --check",
     "smoke": "node tools/smoke.mjs",
-    "simular": "node tools/simular-pontuacao.mjs"
+    "simular": "node tools/simular-pontuacao.mjs",
+    "jogar:classico": "node tools/jogar-classico.mjs"
   }
 }

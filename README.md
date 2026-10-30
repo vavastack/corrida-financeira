@@ -29,6 +29,7 @@ tools/
   build.mjs               monta index.html a partir de src/
   smoke.mjs               teste de fumaça no navegador (Playwright)
   simular-pontuacao.mjs   joga partidas completas do Modo Clássico com estratégias automáticas e aleatórias
+  jogar-classico.mjs      joga uma partida do Modo Clássico pela interface do jogo 2, clicando nos botões
 legacy/                   versões anteriores, só para consulta
 ```
 
@@ -64,6 +65,7 @@ npm run build   # gera index.html a partir de src/
 npm run check   # falha se index.html não corresponde a src/
 npm run smoke   # abre o jogo no Chromium e percorre os fluxos principais
 npm run simular # pontuação de cada estratégia por duração e limite; use ao mudar regras ou faixas
+npm run jogar:classico -- apertada   # partida pela interface (perfis: planejada, apertada, gastadora)
 ```
 
 Não há dependências para a montagem (só Node 18+). O teste de fumaça precisa do Playwright com Chromium.

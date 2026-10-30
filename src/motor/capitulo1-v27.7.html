@@ -5173,8 +5173,10 @@ function applySurprise(t){
    return unresolvedSurprise(t,"Você não resolveu um imprevisto obrigatório importante.");
  }
  // solveSpecial (crédito) vem de partidas salvas antes da 28.0 e passa a usar conta + reserva.
- const useInvestment=t.choice!=="solveCash" || t.cash+.001<amount;
- const rescued=useInvestment?rescueInvestment(t,t.choice==="solveInvest"?Math.min(amount,t.investment):Math.max(0,amount-t.cash),true):0;
+ // Com saldo suficiente, "solveInvest" paga pela aplicação; sem saldo, a conta entra primeiro e a aplicação completa.
+ const cashCovers=t.cash+.001>=amount;
+ const toRescue=t.choice==="solveCash"&&cashCovers?0:t.choice==="solveInvest"&&cashCovers?Math.min(amount,t.investment):Math.max(0,amount-Math.max(0,t.cash));
+ const rescued=toRescue>0?rescueInvestment(t,toRescue,true):0;
  const fromCash=Math.round((amount-rescued)*100)/100;
  t.cash=Math.round((t.cash-fromCash)*100)/100;
  auditEvent(t,"surprisePaid",{amount,cash:fromCash,investment:rescued});
@@ -5832,7 +5834,7 @@ function finalChartMarkup(){
  const labelCash="Gráfico de linhas: dinheiro na conta mais reserva aplicada. Valores"+qualifier+": "+series.map(s=>s.name+" "+last(s,cashOf)).join("; ")+".";
  const labelDebt="Gráfico de linhas: dívidas totais. Valores"+qualifier+": "+series.map(s=>s.name+" "+last(s,debtOf)).join("; ")+".";
  const noDebt=series.every(s=>s.pts.every(p=>debtOf(p)<.01));
- const period=partial?'Meses anteriores: valores no fechamento. Último ponto: posição no momento do encerramento parcial, com decisões do mês ainda possíveis.':'Valores no fechamento de cada mês; o último ponto inclui a decisão final de aplicação.';
+ const period=partial?'Meses anteriores: valores no fechamento. Último ponto: posição no momento do encerramento parcial, com decisões do mês ainda possíveis.':'Valores no fechamento de cada mês; o último ponto mostra o fechamento final, com o rendimento do último mês.';
  const missing=firstM>0?` Dados disponíveis a partir de ${MONTH_NAMES[firstM].charAt(0)+MONTH_NAMES[firstM].slice(1).toLowerCase()}; meses anteriores não foram reconstruídos.`:'';
  const single=series.every(s=>s.pts.length===1)?' Há apenas um registro disponível; não é possível inferir a evolução anterior.':'';
  return `<div class="finalChartCard"><h3>📈 Como o dinheiro evoluiu${partial?' · parcial':''}</h3><p class="sub">${period}${missing}${single} Os produtos comprados não entram nestes gráficos.</p><p class="chartSwipeHint sub">No celular, deslize o gráfico para os lados. Os valores exatos estão em “Ver dados em tabela”.</p>${keys}
@@ -5983,7 +5985,8 @@ function resultDiagnosticLabel(t,b){
  const base=strategyLevel(b.total);
  if(b.total>=scoreThreshold(360))return base;
  // 28.0 (síntese V33): sem problema financeiro relevante, a faixa baixa indica desafio incompleto, não crise.
- if(!hasRelevantFinancialProblem(t,b))return b.total>=scoreThreshold(270)?"🧩 Desafio parcialmente cumprido":"🧩 Desafio pouco cumprido";
+ // Usa o mesmo diagnóstico do perfil, que também considera imprevisto sem solução.
+ if(financialStatus(t,b).rank<2)return b.total>=scoreThreshold(270)?"🧩 Desafio parcialmente cumprido":"🧩 Desafio pouco cumprido";
  // A faixa numérica continua sendo a mesma. A causa predominante define o nome.
  if(hasRelevantFinancialProblem(t,b)){
    return b.total>=scoreThreshold(270)?"⚠️ Estratégia Vulnerável":"🚨 Estratégia Crítica";
