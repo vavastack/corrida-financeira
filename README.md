@@ -11,7 +11,7 @@ Os dois usam o **mesmo motor financeiro** (v27.7). Na aventura, ele roda escondi
 
 ## Estrutura
 
-`index.html` é **gerado**. Edite sempre os arquivos em `src/` e depois rode a montagem.
+`index.html` (Capítulo 2) e `capitulo1.html` (Capítulo 1) são **gerados**. Edite sempre os arquivos em `src/` e depois rode a montagem. O Capítulo 1 é o próprio motor (`src/motor/capitulo1-v27.7.html`) jogado sozinho; o Capítulo 2 o embute para a aventura e para o Modo Clássico, então toda mudança no motor vale para os dois.
 
 ```
 src/
@@ -66,6 +66,7 @@ npm run check   # falha se index.html não corresponde a src/
 npm run smoke   # abre o jogo no Chromium e percorre os fluxos principais
 npm run simular # pontuação de cada estratégia por duração e limite; use ao mudar regras ou faixas
 npm run jogar:classico -- apertada   # partida pela interface (perfis: planejada, apertada, gastadora)
+npm run jogar:classico -- planejada --capitulo1   # a mesma partida no Capítulo 1
 ```
 
 Não há dependências para a montagem (só Node 18+). O teste de fumaça precisa do Playwright com Chromium.

@@ -6354,7 +6354,7 @@ function premiumRecommendation(c){
  }
  const opportunityCost=extra>=1000 && (missing>0 || (c.investmentBalance||0)<reserveGoal());
  if(opportunityCost){
-   return {id:"premium_opportunity",category:"premium",priority:79,type:"guidance",title:"Produtos de maior valor reduziram sua margem de escolha",message:"Você optou por versões de maior valor que atenderam necessidades do jogo, mas terminou com espaço para avançar em outras necessidades e/ou na meta de reserva. A escolha não é inadequada por si só; vale comparar o benefício adicional do produto com o custo de oportunidade de usar esses recursos em outros objetivos."};
+   return {id:"premium_opportunity",category:"premium",priority:79,type:"guidance",title:"Produtos de maior valor reduziram sua margem de escolha",message:"Você optou por versões de maior valor que atenderam necessidades do jogo, mas terminou com espaço para avançar em outras necessidades e/ou na reserva financeira. A escolha não é inadequada por si só; vale comparar o benefício adicional do produto com o custo de oportunidade de usar esses recursos em outros objetivos."};
  }
  return null;
 }
@@ -8093,7 +8093,7 @@ function storyRefresh(){
  else if(/limite|crédito bloqueado|cartão está bloqueado/i.test(t.quickPurchaseError||'')){mood='worried';event='Compra não autorizada';line='Esta compra não passou nas condições atuais do cartão. Vou conferir o limite disponível e pensar em outra alternativa.';animate=!!previous&&previous.purchaseError!==current.purchaseError;}
  else if(newNeeds.length){mood='happy';event='Necessidade atendida';line='Consegui resolver: '+newNeeds.map(n=>n.label.toLowerCase()).join(', ')+'. '+(completed.length===NEED_DEFINITIONS.length?'Todas as necessidades estão atendidas! Agora quero cuidar dos próximos compromissos.':'Meu dia a dia vai ficando mais organizado.');animate=true;}
  else if(gained.length){mood='happy';event='Uma nova conquista';line='Comprei '+gained.map(a=>a.name).join(', ')+'. Quero aproveitar essa conquista e lembrar dos compromissos que assumi.';animate=true;}
- else if(previous&&current.reserve>=reserveGoal()&&previous.reserve<reserveGoal()){mood='happy';event='Meta de reserva alcançada';line='Minha reserva chegou à meta! Quero manter essa proteção enquanto continuo meus planos.';animate=true;}
+ else if(previous&&current.reserve>=reserveGoal()&&previous.reserve<reserveGoal()){mood='happy';event='Reserva em bom nível';line='Minha reserva chegou a um bom nível! Quero manter essa proteção enquanto continuo meus planos.';animate=true;}
  else if(previous&&previous.revolving>.01&&current.revolving<=.01){mood='relieved';event='Saída do rotativo';line='O saldo saiu do rotativo. Vou conferir se ainda há parcelas ou outros compromissos pela frente.';animate=true;}
  else if(!final&&state.stage==='buy'){
  const offers=(t.quickBuyIds||[]).map(id=>PRODUCTS[id]).filter(x=>x&&!assets.some(a=>a.id===x.id));

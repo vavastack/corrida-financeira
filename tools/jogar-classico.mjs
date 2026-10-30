@@ -1,7 +1,8 @@
-// Joga uma partida completa do Modo Clássico dentro do jogo 2 (index.html), pela interface:
+// Joga uma partida completa do Modo Clássico pela interface, no jogo 2 (index.html) ou no
+// Capítulo 1 (capitulo1.html, com --capitulo1):
 // Novo jogo → Modo Clássico → configuração → compras, faturas, aplicação, curso, imprevisto → telas finais.
 // Clica nos mesmos botões que o jogador usa e confere que a partida termina sem erros.
-// Uso: node tools/jogar-classico.mjs [perfil] [--shots pasta]
+// Uso: node tools/jogar-classico.mjs [perfil] [--capitulo1] [--shots pasta]
 //   perfis: planejada (padrão), apertada (paga só o mínimo em meses alternados), gastadora (gasta tudo no débito)
 import {createRequire} from 'node:module';
 import path from 'node:path';
@@ -14,6 +15,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
 const profileName = args.find(a => !a.startsWith('--') && args[args.indexOf(a) - 1] !== '--shots') || 'planejada';
 const shotsArg = args.indexOf('--shots');
+const chapter1 = args.includes('--capitulo1');
 const shots = shotsArg >= 0 ? path.resolve(args[shotsArg + 1]) : null;
 if (shots) fs.mkdirSync(shots, {recursive: true});
 
@@ -35,18 +37,35 @@ try {
   page.on('dialog', d => { errors.push(`alerta inesperado: ${d.message()}`); d.accept(); });
   const wait = ms => page.waitForTimeout(ms);
 
-  await page.goto(pathToFileURL(path.join(root, 'index.html')).href);
-  await page.waitForFunction(() => !!document.getElementById('b-engine').contentWindow?.cf2);
-  await page.locator('button:visible', {hasText: 'Novo jogo'}).first().click(); await wait(800);
-  await page.locator('dialog[open] button', {hasText: 'Modo Clássico'}).click(); await wait(2000);
-  await page.locator('button:visible', {hasText: 'Configurar partida'}).click(); await wait(900);
-  for (const choice of ['Equilibrado', '8 meses', 'Individual', '1 participante', 'R$ 3.000']) {
-    await page.locator('label:visible').filter({hasText: choice}).first().click(); await wait(800);
+  let game;
+  if (chapter1) {
+    await page.goto(pathToFileURL(path.join(root, 'capitulo1.html')).href);
+    await page.locator('button:visible', {hasText: 'Novo jogo'}).click(); await wait(600);
+    await page.locator('button:visible', {hasText: 'Modo Clássico'}).click(); await wait(900);
+    for (const choice of ['Individual', '8 meses', 'Intermediário']) {
+      await page.locator('button:visible').filter({hasText: choice}).first().click(); await wait(300);
+    }
+    await page.locator('#runStart').click(); await wait(1500);
+    game = page.mainFrame();
+    // Telas de objetivos/abertura antes da primeira vitrine.
+    for (let i = 0; i < 5 && !await game.evaluate(() => state.teams.length > 0 && !!document.getElementById('advanceBtn')?.offsetParent); i++) {
+      const next = page.locator('button:visible').filter({hasText: /Começar|Avançar|Continuar|Iniciar/});
+      if (!await next.count()) break;
+      await next.last().click(); await wait(900);
+    }
+  } else {
+    await page.goto(pathToFileURL(path.join(root, 'index.html')).href);
+    await page.waitForFunction(() => !!document.getElementById('b-engine').contentWindow?.cf2);
+    await page.locator('button:visible', {hasText: 'Novo jogo'}).first().click(); await wait(800);
+    await page.locator('dialog[open] button', {hasText: 'Modo Clássico'}).click(); await wait(2000);
+    await page.locator('button:visible', {hasText: 'Configurar partida'}).click(); await wait(900);
+    for (const choice of ['Equilibrado', '8 meses', 'Individual', '1 participante', 'R$ 3.000']) {
+      await page.locator('label:visible').filter({hasText: choice}).first().click(); await wait(800);
+    }
+    await page.locator('button:visible', {hasText: 'Avançar'}).last().click(); await wait(900);
+    await page.locator('button:visible', {hasText: 'Começar corrida'}).click(); await wait(2500);
+    game = page.frame({name: 'b-fast'});
   }
-  await page.locator('button:visible', {hasText: 'Avançar'}).last().click(); await wait(900);
-  await page.locator('button:visible', {hasText: 'Começar corrida'}).click(); await wait(2500);
-
-  const game = page.frame({name: 'b-fast'});
   const status = () => game.evaluate(() => {
     const t = state.teams[0];
     return {stage: state.stage, feedback: state.feedback, month: state.month, cash: Math.round(t.cash), reserve: Math.round(t.investment), debt: Math.round(totalBankDebt(t)), live: liveScore(t)};
@@ -147,7 +166,7 @@ try {
   await browser.close();
 }
 
-console.log(`\n${profileName}: ${result.total} pts · ${result.label} · necessidades ${result.needs}`);
+console.log(`\n${chapter1 ? 'Capítulo 1 · ' : ''}${profileName}: ${result.total} pts · ${result.label} · necessidades ${result.needs}`);
 console.log(`saldo aplicado +${result.reserve} · metas +${result.goals} · patrimônio +${result.capital} · juros ${result.interest} · imprevisto ${result.surprise}`);
 const failures = [
   result.stage !== 'finalRecommendations' && 'a partida não chegou às recomendações finais',
